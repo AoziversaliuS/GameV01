@@ -21,7 +21,7 @@ public abstract class OzElement implements Origin{
 	public String  Tag = "0-0-0";
 	
 	public PlaneE    planeT = PlaneE.ELSE;        //用来识别其它物体碰到自己的哪个位置
-	public VerticalE verticalT = VerticalE.FALL;
+	public VerticalE verticalT = VerticalE.ELSE;
 	//构造函数
 	public OzElement(String Tag,int Rank,OzElementType type,PointF l,RectF entityOffset){
 		this.Tag = Tag;

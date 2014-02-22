@@ -25,7 +25,7 @@ public class Player extends OzElement{
 	//planeTouch
 	public static PlaneE     planeT    =  PlaneE.ELSE;
 	//verticalTouch
-	public static VerticalE  verticalT =  VerticalE.FALL;
+	public static VerticalE  verticalT =  VerticalE.ELSE;
 	
 	public Player() {
 		super(
@@ -71,7 +71,7 @@ public class Player extends OzElement{
 	public void resetOnGameLogic(){
 		//状态更新不能写在重设变量这里
 		Player.planeT = PlaneE.ELSE;
-		Player.verticalT = VerticalE.FALL;
+		Player.verticalT = VerticalE.ELSE;
 	}
 	
 	//玩家状态更新
@@ -80,20 +80,20 @@ public class Player extends OzElement{
 	}
 	public void jumpAction(){
 		//当玩家站在陆地上且按下跳跃按键之后才可以跳跃。verticalT
-			Log.v("player","玩家状态："+Player.verticalT+"   跳跃按键："+GameButton.get_S());
-			if(GameButton.get_S() == GameButton.S_JUMP && Player.verticalT == VerticalE.TOP){
-				Player.verticalT = VerticalE.JUMP;
-			}
-			if(Player.verticalT == VerticalE.JUMP && JumpTimeCount < JumpTimeMAX){
-				Player.JumpTimeCount++;
-			}
-			else if(Player.verticalT == VerticalE.JUMP && JumpTimeCount > JumpTimeMAX){
-				Player.verticalT = VerticalE.FALL;
-				JumpTimeCount = 0;
-			}
-			else{
-				JumpTimeCount = 0;  //如果玩家当前状态不是跳跃状态，则重置跳跃时间计数，为下次跳跃做准备。
-			}
+//			Log.v("player","玩家状态："+Player.verticalT+"   跳跃按键："+GameButton.get_S());
+//			if(GameButton.get_S() == GameButton.S_JUMP && Player.verticalT == VerticalE.TOP){
+//				Player.verticalT = VerticalE.JUMP;
+//			}
+//			if(Player.verticalT == VerticalE.JUMP && JumpTimeCount < JumpTimeMAX){
+//				Player.JumpTimeCount++;
+//			}
+//			else if(Player.verticalT == VerticalE.JUMP && JumpTimeCount > JumpTimeMAX){
+//				Player.verticalT = VerticalE.FALL;
+//				JumpTimeCount = 0;
+//			}
+//			else{
+//				JumpTimeCount = 0;  //如果玩家当前状态不是跳跃状态，则重置跳跃时间计数，为下次跳跃做准备。
+//			}
 	}
 	@Override
 	public void impact(Player player) {
