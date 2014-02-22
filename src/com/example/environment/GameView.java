@@ -283,10 +283,10 @@ public class GameView extends View implements Runnable{
 					else if(gateAtlas.get(i).verticalT == VerticalE.TOP){
 						Player.verticalT = VerticalE.TOP;
 					}
-//					else if(gateAtlas.get(i).verticalT == VerticalE.BOTTOM){
-//						//若碰到天花板，则玩家的状态变为下坠状态
-//						Player.verticalT = VerticalE.FALL;
-//					}
+					else if(gateAtlas.get(i).verticalT == VerticalE.BOTTOM){
+						//若碰到天花板，则玩家的状态变为下坠状态
+						player.setJump(false);
+					}
 					
 				}
 				//碰撞检测↑

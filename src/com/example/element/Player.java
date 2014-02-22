@@ -18,14 +18,15 @@ public class Player extends OzElement{
 	public static final float VALUE_GRAVITY = 8;                //重力
 	
 	
-	public static final float VALUE_JUMP    = 7;  //跳跃的速度
-	public static final int JumpTimeMAX = 100;
-	public static int JumpTimeCount = 0;  //跳跃的时间
+	public  static final float VALUE_JUMP    = 7;  //跳跃的速度
+	public  static final int JumpTimeMAX = 100;
+	private static int JumpTimeCount = 0;  //跳跃的时间
 	
 	//planeTouch
 	public static PlaneE     planeT    =  PlaneE.ELSE;
 	//verticalTouch
 	public static VerticalE  verticalT =  VerticalE.ELSE;
+	private boolean jump = false;
 	
 	public Player() {
 		super(
@@ -35,6 +36,7 @@ public class Player extends OzElement{
 				new PointF(400, 400),
 				new RectF(0, 0,P.Game_Player.basicWidth,P.Game_Player.basicHeight)
 		);
+		jump = false;
 	}
 
 	@Override
@@ -80,23 +82,32 @@ public class Player extends OzElement{
 	}
 	public void jumpAction(){
 		//当玩家站在陆地上且按下跳跃按键之后才可以跳跃。verticalT
-//			Log.v("player","玩家状态："+Player.verticalT+"   跳跃按键："+GameButton.get_S());
-//			if(GameButton.get_S() == GameButton.S_JUMP && Player.verticalT == VerticalE.TOP){
-//				Player.verticalT = VerticalE.JUMP;
-//			}
-//			if(Player.verticalT == VerticalE.JUMP && JumpTimeCount < JumpTimeMAX){
-//				Player.JumpTimeCount++;
-//			}
-//			else if(Player.verticalT == VerticalE.JUMP && JumpTimeCount > JumpTimeMAX){
-//				Player.verticalT = VerticalE.FALL;
-//				JumpTimeCount = 0;
-//			}
-//			else{
-//				JumpTimeCount = 0;  //如果玩家当前状态不是跳跃状态，则重置跳跃时间计数，为下次跳跃做准备。
-//			}
+			Log.v("player","玩家状态："+Player.verticalT+"   跳跃按键："+GameButton.get_S());
+			if(GameButton.get_S() == GameButton.S_JUMP && Player.verticalT == VerticalE.TOP){
+				this.jump = true;
+			}
+			if(this.jump == true && JumpTimeCount < JumpTimeMAX){
+				Player.JumpTimeCount++;
+			}
+			else if(this.jump == true && JumpTimeCount >= JumpTimeMAX){
+				JumpTimeCount = 0;
+			}
+			else{
+				this.jump = false;
+				JumpTimeCount = 0;  //如果玩家当前状态不是跳跃状态，则重置跳跃时间计数，为下次跳跃做准备。
+			}
 	}
 	@Override
 	public void impact(Player player) {
 	}
+
+	public boolean isJump() {
+		return jump;
+	}
+
+	public void setJump(boolean jump) {
+		this.jump = jump;
+	}
+	
 
 }
