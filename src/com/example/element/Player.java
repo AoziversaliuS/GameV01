@@ -19,6 +19,7 @@ public class Player extends OzElement{
 	
 	
 	public  static final float VALUE_JUMP    = 7;  //跳跃的速度
+	
 	public  static final int JumpTimeMAX = 50;
 	private static int JumpTimeCount = 0;  //跳跃的时间
 	
@@ -26,8 +27,8 @@ public class Player extends OzElement{
 	public static PlaneE     planeT    =  PlaneE.ELSE;
 	//verticalTouch
 	public static VerticalE  verticalT =  VerticalE.ELSE;
-	private static  boolean jump = false;
-	//此
+	private static boolean jump = false;
+	
 	public Player() {
 		super(
 				"Player",
