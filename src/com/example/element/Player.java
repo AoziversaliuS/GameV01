@@ -29,6 +29,9 @@ public class Player extends OzElement{
 	private static PlaneE     planeT    =  PlaneE.ELSE;
 	//verticalTouch
 	private static VerticalE  verticalT =  VerticalE.ELSE;
+	private  float push_X = 0;  //碰撞后将玩家位置推回到穿墙前
+	private  float push_Y = 0;  //碰撞后将玩家位置推回到穿墙前
+	
 	private static boolean jump = false;
 	
 	public Player() {
@@ -102,19 +105,6 @@ public class Player extends OzElement{
 				JumpTimeCount = 0;  //如果玩家当前状态不是跳跃状态，则重置跳跃时间计数，为下次跳跃做准备。
 			}
 	}
-	@Override
-	public void impact(Player player) {
-	}
-
-	public static boolean isJump() {
-		return jump;
-	}
-	public static PlaneE getPlaneT() {
-		return planeT;
-	}
-	public static VerticalE getVerticalT() {
-		return verticalT;
-	}
 	
 	public void set_VerticalT_and_PlaneT( ArrayList<OzElement>  gateAtlas){
 		for(int i=0;i<gateAtlas.size();i++){
@@ -140,6 +130,38 @@ public class Player extends OzElement{
 			}
 		}
 	}
+	@Override
+	public void impact(Player player) {
+	}
+
+	public static boolean isJump() {
+		return jump;
+	}
+	public static PlaneE getPlaneT() {
+		return planeT;
+	}
+	public static VerticalE getVerticalT() {
+		return verticalT;
+	}
+
+	public  float getPush_X() {
+		return push_X;
+	}
+
+	public  void setPush_X(float push_X) {
+		this.push_X = push_X;
+	}
+
+	public  float getPush_Y() {
+		return push_Y;
+	}
+
+	public  void setPush_Y(float push_Y) {
+		this.push_Y = push_Y;
+	}
+	
+
+	
 	
 	
 

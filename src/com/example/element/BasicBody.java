@@ -45,6 +45,7 @@ public abstract class BasicBody extends OzElement {
 		else if( Player.getVerticalT()==VerticalE.TOP ){
 			//停止下坠,坐标不改变就是停止下坠的状态
 		}
+	    
 	}
 
 	@Override

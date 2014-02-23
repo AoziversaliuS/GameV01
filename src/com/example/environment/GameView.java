@@ -277,13 +277,7 @@ public class GameView extends View implements Runnable{
 				player.resetOnGameLogic();
 				//重置信息↑
 				
-				
-				//碰撞检测↓
-				for(int i=0;i<gateAtlas.size();i++){
-					gateAtlas.get(i).impact(player);
-				}
-				player.set_VerticalT_and_PlaneT(gateAtlas); //设置玩家的垂直状态和水平状态值
-				//碰撞检测↑
+				this.impactEngine();
 				
 				//状态改变↓
 				player.updateAction();
@@ -293,6 +287,7 @@ public class GameView extends View implements Runnable{
 				for(int i=0;i<gateAtlas.size();i++){
 					gateAtlas.get(i).engine();
 				}
+				
 				player.engine();
 				//元素移动等逻辑↑
 	}
@@ -310,7 +305,15 @@ public class GameView extends View implements Runnable{
 		player.show(canvasBuffer);
 		game_Button.show(canvasBuffer);
 	}
-	
+	public void impactEngine(){
+		//碰撞检测↓
+		for(int i=0;i<gateAtlas.size();i++){
+			gateAtlas.get(i).impact(player);
+		}
+		player.set_VerticalT_and_PlaneT(gateAtlas); //设置玩家的垂直状态和水平状态值
+		//碰撞检测↑
+		
+	}
 	
 	
 	
