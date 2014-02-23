@@ -24,7 +24,6 @@ import com.example.element.Player;
 import com.example.element.button.GameButton;
 import com.example.toolclass.OzInt;
 import com.example.toolclass.P;
-import com.example.toolclass.Rank;
 import com.example.toolclass.Screen;
 
 public class GameView extends View implements Runnable{
@@ -271,36 +270,19 @@ public class GameView extends View implements Runnable{
 				for(int i=0;i<gateAtlas.size();i++){
 					gateAtlas.get(i).impact(player);
 				}
-				for(int i=0;i<gateAtlas.size();i++){
-					
-					//只能碰到物体的4条边的其中1条
-					if(gateAtlas.get(i).planeT == PlaneE.Left){
-						Player.planeT = PlaneE.Left;
-					}
-					else if(gateAtlas.get(i).planeT == PlaneE.Right){
-						Player.planeT = PlaneE.Right;
-					}
-					else if(gateAtlas.get(i).verticalT == VerticalE.TOP){
-						Player.verticalT = VerticalE.TOP;
-					}
-					else if(gateAtlas.get(i).verticalT == VerticalE.BOTTOM){
-						//若碰到天花板，则玩家的状态变为下坠状态
-						player.setJump(false);
-					}
-					
-				}
+				player.set_VerticalT_and_PlaneT(gateAtlas); //设置玩家的垂直状态和水平状态值
 				//碰撞检测↑
 				
 				//状态改变↓
 				player.updateAction();
 				//状态改变↑
 				
-				//元素逻辑↓
+				//元素移动等逻辑↓
 				for(int i=0;i<gateAtlas.size();i++){
 					gateAtlas.get(i).engine();
 				}
 				player.engine();
-				//元素逻辑↑
+				//元素移动等逻辑↑
 	}
 	public void gameDraw(){
 		//不用加canvas参数，因为现在用的是canvasBuffer缓冲来画

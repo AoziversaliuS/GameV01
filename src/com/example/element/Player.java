@@ -1,5 +1,7 @@
 package com.example.element;
 
+import java.util.ArrayList;
+
 import android.graphics.Canvas;
 import android.graphics.PointF;
 import android.graphics.RectF;
@@ -24,9 +26,9 @@ public class Player extends OzElement{
 	private static int JumpTimeCount = 0;  //跳跃的时间
 	
 	//planeTouch
-	public static PlaneE     planeT    =  PlaneE.ELSE;
+	private static PlaneE     planeT    =  PlaneE.ELSE;
 	//verticalTouch
-	public static VerticalE  verticalT =  VerticalE.ELSE;
+	private static VerticalE  verticalT =  VerticalE.ELSE;
 	private static boolean jump = false;
 	
 	public Player() {
@@ -73,8 +75,8 @@ public class Player extends OzElement{
 	
 	public void resetOnGameLogic(){
 		//状态更新不能写在重设变量这里
-		Player.planeT = PlaneE.ELSE;
-		Player.verticalT = VerticalE.ELSE;
+		planeT = PlaneE.ELSE;
+		verticalT = VerticalE.ELSE;
 	}
 	
 	//玩家状态更新
@@ -83,16 +85,20 @@ public class Player extends OzElement{
 	}
 	public void jumpAction(){
 		//当玩家站在陆地上且按下跳跃按键之后才可以跳跃。verticalT
-			Log.v("player","玩家状态："+Player.jump+"   跳跃按键："+GameButton.get_S());
-			if(GameButton.get_S() == GameButton.S_JUMP && Player.verticalT == VerticalE.TOP){
-				this.jump = true;
+			Log.v("player","玩家状态："+jump+"   跳跃按键："+GameButton.get_S());
+			if(GameButton.get_S() == GameButton.S_JUMP && verticalT == VerticalE.TOP){
+				jump = true;
 			}
 			
-			if(this.jump == true && JumpTimeCount < JumpTimeMAX){
-				Player.JumpTimeCount++;
+			
+			if(verticalT == VerticalE.BOTTOM){  //碰到元素顶部则设跳跃状态为false
+				jump = false;
+			}
+			else if( jump == true && JumpTimeCount < JumpTimeMAX){
+				JumpTimeCount++;
 			}
 			else{
-				this.jump = false;
+				 jump = false;
 				JumpTimeCount = 0;  //如果玩家当前状态不是跳跃状态，则重置跳跃时间计数，为下次跳跃做准备。
 			}
 	}
@@ -103,10 +109,38 @@ public class Player extends OzElement{
 	public static boolean isJump() {
 		return jump;
 	}
-
-	public void setJump(boolean jump) {
-		Player.jump = jump;
+	public static PlaneE getPlaneT() {
+		return planeT;
 	}
+	public static VerticalE getVerticalT() {
+		return verticalT;
+	}
+	
+	public void set_VerticalT_and_PlaneT( ArrayList<OzElement>  gateAtlas){
+		for(int i=0;i<gateAtlas.size();i++){
+			//只能碰到某元素的4条边的其中1条
+			if(gateAtlas.get(i).planeT == PlaneE.Left){
+				
+				planeT = PlaneE.Left;
+				
+			}
+			else if(gateAtlas.get(i).planeT == PlaneE.Right){
+				
+				planeT = PlaneE.Right;
+				
+			}
+			else if(gateAtlas.get(i).verticalT == VerticalE.TOP){
+				
+				verticalT = VerticalE.TOP;
+				
+			}
+			else if(gateAtlas.get(i).verticalT == VerticalE.BOTTOM){
+				
+				verticalT = VerticalE.BOTTOM;
+			}
+		}
+	}
+	
 	
 
 }
