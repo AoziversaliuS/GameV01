@@ -19,6 +19,7 @@ import android.view.View;
 import com.example.basicenum.PlaneE;
 import com.example.basicenum.StatusType;
 import com.example.basicenum.VerticalE;
+import com.example.element.BasicBody;
 import com.example.element.OzElement;
 import com.example.element.Player;
 import com.example.element.button.GameButton;
@@ -260,6 +261,17 @@ public class GameView extends View implements Runnable{
 	
 	
 	public void gameLogic(){
+		
+				int s = 0;
+				for(OzElement g:gateAtlas){
+					if(g instanceof BasicBody){
+						s++;
+					}
+				}
+				Log.v("test", "BasicBody个数: "+s);
+				
+		
+		
 		
 				//重置信息↓
 				player.resetOnGameLogic();

@@ -15,10 +15,13 @@ public class GameChapter {
 	//第一关地图
 	static void A_01(ArrayList<OzElement> gateAtlas){
 		
+		gateAtlas.add(new BackGround("BG-1"));
+		
+		
+		//以下皆为继承BasicBody的对象，只有BasicBody的子类才能达到伪静止状态
 		gateAtlas.add(new Land("L-1", new PointF(  0, 1600)));
 		gateAtlas.add(new Land("L-2", new PointF(200, 1500)));
 		gateAtlas.add(new Land("L-3", new PointF(400, 1400)));
-		gateAtlas.add(new BackGround("BG-1"));
 	}
 	
 	
