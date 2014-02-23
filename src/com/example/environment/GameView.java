@@ -270,15 +270,14 @@ public class GameView extends View implements Runnable{
 //				}
 //				Log.v("test", "BasicBody个数: "+s);
 				
-		
+				//重置玩家信息↓
 				player.resetOnGameLogic();
-				//重置信息↑
 				
+				//碰撞↓
 				this.impactEngine();
-				//碰撞↑
 				
+				//玩家状态改变↓
 				player.updateAction();
-				//状态改变↑
 				
 				//元素移动等逻辑↓
 				for(int i=0;i<gateAtlas.size();i++){
@@ -286,7 +285,6 @@ public class GameView extends View implements Runnable{
 				}
 				
 				player.engine();
-				//元素移动等逻辑↑
 	}
 	public void gameDraw(){
 		//不用加canvas参数，因为现在用的是canvasBuffer缓冲来画
@@ -303,7 +301,7 @@ public class GameView extends View implements Runnable{
 		game_Button.show(canvasBuffer);
 	}
 	public void impactEngine(){
-		//碰撞检测↓
+		
 		for(int i=0;i<gateAtlas.size();i++){
 			gateAtlas.get(i).impact(player);
 		}
@@ -311,14 +309,12 @@ public class GameView extends View implements Runnable{
 		
 		for(OzElement g:gateAtlas){
 			if(g instanceof BasicBody){
-				//让玩家回到穿墙前的一瞬
+				//让玩家回到穿墙前的一瞬，相对来说玩家穿墙实际上是墙穿玩家，正确的做法是把墙从玩家身边拉开。
 				g.l.x = g.l.x + player.getPush_X();
 				g.l.y = g.l.y + player.getPush_Y();
 			}
 		}
 		//此时还未绘图
-		//碰撞检测↑
-		
 	}
 	
 	
