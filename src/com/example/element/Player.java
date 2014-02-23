@@ -27,7 +27,7 @@ public class Player extends OzElement{
 	//verticalTouch
 	public static VerticalE  verticalT =  VerticalE.ELSE;
 	private static  boolean jump = false;
-	
+	//´Ë
 	public Player() {
 		super(
 				"Player",
