@@ -271,15 +271,12 @@ public class GameView extends View implements Runnable{
 //				Log.v("test", "BasicBody个数: "+s);
 				
 		
-		
-		
-				//重置信息↓
 				player.resetOnGameLogic();
 				//重置信息↑
 				
 				this.impactEngine();
+				//碰撞↑
 				
-				//状态改变↓
 				player.updateAction();
 				//状态改变↑
 				
@@ -314,11 +311,12 @@ public class GameView extends View implements Runnable{
 		
 		for(OzElement g:gateAtlas){
 			if(g instanceof BasicBody){
-//				g.l.x = g.l.x - player.getPush_X();
-				g.l.y = g.l.y - player.getPush_Y();
+				//让玩家回到穿墙前的一瞬
+				g.l.x = g.l.x + player.getPush_X();
+				g.l.y = g.l.y + player.getPush_Y();
 			}
 		}
-//		Log.v("test", "getPush_Y: "+player.getPush_Y());
+		//此时还未绘图
 		//碰撞检测↑
 		
 	}

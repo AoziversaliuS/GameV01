@@ -31,6 +31,8 @@ public class Player extends OzElement{
 	private static VerticalE  verticalT =  VerticalE.ELSE;
 	private  float push_X = 0;  //碰撞后将玩家位置推回到穿墙前
 	private  float push_Y = 0;  //碰撞后将玩家位置推回到穿墙前
+	private  float dY = 2;  
+	private  float dX = 2;  
 	
 	private static boolean jump = false;
 	
@@ -151,7 +153,9 @@ public class Player extends OzElement{
 	}
 
 	public  void setPush_X(float push_X) {
-		this.push_X = push_X;
+		if(push_X - dX > 0){
+			this.push_X = push_X - dX;
+		}
 	}
 
 	public  float getPush_Y() {
@@ -159,8 +163,8 @@ public class Player extends OzElement{
 	}
 
 	public  void setPush_Y(float push_Y) {
-		if(push_Y > 0){
-			this.push_Y = push_Y;
+		if(push_Y - this.dY > 0){
+			this.push_Y = push_Y - this.dY;
 		}
 	}
 	

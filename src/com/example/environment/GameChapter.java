@@ -22,6 +22,7 @@ public class GameChapter {
 		gateAtlas.add(new Land("L-1", new PointF(  0, 1600)));
 		gateAtlas.add(new Land("L-2", new PointF(200, 1500)));
 		gateAtlas.add(new Land("L-3", new PointF(400, 1400)));
+		gateAtlas.add(new Land("L-4", new PointF(400, 1700)));
 	}
 	
 	
