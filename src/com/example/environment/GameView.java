@@ -262,13 +262,13 @@ public class GameView extends View implements Runnable{
 	
 	public void gameLogic(){
 		
-				int s = 0;
-				for(OzElement g:gateAtlas){
-					if(g instanceof BasicBody){
-						s++;
-					}
-				}
-				Log.v("test", "BasicBody个数: "+s);
+//				int s = 0;
+//				for(OzElement g:gateAtlas){
+//					if(g instanceof BasicBody){
+//						s++;
+//					}
+//				}
+//				Log.v("test", "BasicBody个数: "+s);
 				
 		
 		
@@ -311,6 +311,14 @@ public class GameView extends View implements Runnable{
 			gateAtlas.get(i).impact(player);
 		}
 		player.set_VerticalT_and_PlaneT(gateAtlas); //设置玩家的垂直状态和水平状态值
+		
+		for(OzElement g:gateAtlas){
+			if(g instanceof BasicBody){
+//				g.l.x = g.l.x - player.getPush_X();
+				g.l.y = g.l.y - player.getPush_Y();
+			}
+		}
+//		Log.v("test", "getPush_Y: "+player.getPush_Y());
 		//碰撞检测↑
 		
 	}

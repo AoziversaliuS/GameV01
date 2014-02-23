@@ -78,6 +78,8 @@ public class Player extends OzElement{
 	
 	public void resetOnGameLogic(){
 		//状态更新不能写在重设变量这里
+		push_X = 0;
+		push_Y = 0;
 		planeT = PlaneE.ELSE;
 		verticalT = VerticalE.ELSE;
 	}
@@ -157,7 +159,9 @@ public class Player extends OzElement{
 	}
 
 	public  void setPush_Y(float push_Y) {
-		this.push_Y = push_Y;
+		if(push_Y > 0){
+			this.push_Y = push_Y;
+		}
 	}
 	
 
