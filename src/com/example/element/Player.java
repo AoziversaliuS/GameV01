@@ -17,7 +17,7 @@ import com.example.toolclass.Rank;
 public class Player extends OzElement{
 
 	public static final float VALUE_MOVE    = 5;                //玩家水平移动速度
-	public static final float VALUE_GRAVITY = 8;                //重力
+	public static final float VALUE_GRAVITY = 5;                //重力
 	
 	
 	public  static final float VALUE_JUMP    = 7;  //跳跃的速度

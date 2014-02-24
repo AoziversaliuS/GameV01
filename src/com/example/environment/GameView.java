@@ -177,7 +177,7 @@ public class GameView extends View implements Runnable{
     * 每一帧绘图
     */
 	protected void onDraw(Canvas canvas) {
-		
+		super.onDraw(canvas);
 		switch (status) {
 		
 		case Game:{
@@ -201,7 +201,6 @@ public class GameView extends View implements Runnable{
 		}
 		
 		canvas.drawBitmap(bitmapBuffer, 0, 0, paint); //双缓冲
-		super.onDraw(canvas);
 	}
 	/**
 	 * 对每一帧进行总切换
