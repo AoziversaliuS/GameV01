@@ -31,7 +31,7 @@ public class GameView extends View implements Runnable{
 
 	long timeStart = 0;  //每一帧的开始和结束时间
 	long timeCost = 0;
-	long timeSleep = 10;  //线程睡眠的时间，每一帧
+	long timeSleep = 4;  //线程睡眠的时间，每一帧
 	Canvas canvasBuffer;
 	Bitmap bitmapBuffer;
 	Paint paint;
@@ -177,14 +177,12 @@ public class GameView extends View implements Runnable{
     * 每一帧绘图
     */
 	protected void onDraw(Canvas canvas) {
-		super.onDraw(canvas);
 		switch (status) {
 		
 		case Game:{
-						this.gameDraw();
+						this.gameDraw( canvasBuffer);
 		}
 		break;
-		
 		
 		case Loading:
 			break;
@@ -200,7 +198,11 @@ public class GameView extends View implements Runnable{
 			break;
 		}
 		
-		canvas.drawBitmap(bitmapBuffer, 0, 0, paint); //双缓冲
+		
+		canvas.drawBitmap(bitmapBuffer, 0, 0, null); //双缓冲
+		canvas.drawText("睡眠耗时 : "+w, 50, 50, paint);
+		
+		super.onDraw(canvas);
 	}
 	/**
 	 * 对每一帧进行总切换
@@ -208,25 +210,27 @@ public class GameView extends View implements Runnable{
 	private void frameSwitching(){
 		
 		this.eventLogics();     //逻辑。
-		this.postInvalidate();  //绘画。
+		this.postInvalidate(); //绘画。
 		
 	}
 	/**
 	 * 游戏模拟的线程
 	 */
+	float w;
 	public void run() {
 		try {
 			while(threadFlag){
-				timeStart = System.currentTimeMillis();
+//				timeStart = System.currentTimeMillis();
 				//对每一帧根据逻辑进行切换
 				this.frameSwitching();
-				timeCost   = System.currentTimeMillis() - timeStart;
+//				timeCost   = System.currentTimeMillis() - timeStart;
 				//运算消耗的总时间
 				if( timeCost< timeSleep ){
-					Thread.sleep( timeSleep-timeCost );
+					Thread.sleep(timeSleep - timeCost);
 				}
 				else{
 				}
+				w= timeSleep-timeCost;
 				Log.v("GameView", "睡眠时间："+( timeSleep-timeCost ));
 			}
 		} catch (InterruptedException e) {
@@ -285,19 +289,19 @@ public class GameView extends View implements Runnable{
 				
 				player.engine();
 	}
-	public void gameDraw(){
+	public void gameDraw(Canvas canvas ){
 		//不用加canvas参数，因为现在用的是canvasBuffer缓冲来画
 		for(int i=0;i<rankNum.size();i++){
 			
 			for(int i2=0;i2<gateAtlas.size();i2++){
 				if(rankNum.get(i).value == gateAtlas.get(i2).rankNum){
-					gateAtlas.get(i2).show(canvasBuffer);
+					gateAtlas.get(i2).show(canvas);
 				}
 			}
 			
 		}
-		player.show(canvasBuffer);
-		game_Button.show(canvasBuffer);
+		player.show(canvas);
+		game_Button.show(canvas);
 	}
 	public void impactEngine(){
 		

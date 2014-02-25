@@ -16,12 +16,13 @@ import com.example.toolclass.Rank;
 
 public class Player extends OzElement{
 
-	public static final float VALUE_MOVE    = 5;                //玩家水平移动速度
-	public static final float VALUE_GRAVITY = 5;                //重力
+	public static final float VALUE_MOVE    = 4;                //玩家水平移动速度
+	public static final float VALUE_GRAVITY = 2;                //重力
+	public static final float limitUp = 200;
+	public static final float limitDown = 520;
 	
-	
-	public  static final float VALUE_JUMP    = 7;  //跳跃的速度
-	
+	public  static final float VALUE_JUMP    = 2;  //跳跃的速度
+	public  static PointF L = new PointF(0,0);
 	public  static final int JumpTimeMAX = 50;
 	private static int JumpTimeCount = 0;  //跳跃的时间
 	
@@ -65,7 +66,17 @@ public class Player extends OzElement{
 
 	@Override
 	public void verticalLogic() {
-		
+	    if( Player.isJump()==true && l.y>Player.limitUp){
+			l.y = l.y - Player.VALUE_JUMP;
+			Log.v("status","玩家跳跃");
+		}
+		else if(Player.isJump()==false && (Player.getVerticalT()==VerticalE.ELSE || Player.getVerticalT()==VerticalE.BOTTOM) && l.y<Player.limitDown){
+			l.y = l.y + Player.VALUE_GRAVITY;
+			Log.v("status","玩家下坠");
+		}
+		else if( Player.getVerticalT()==VerticalE.TOP ){
+			//停止下坠,坐标不改变就是停止下坠的状态
+		}
 	}
 
 	@Override
@@ -84,6 +95,7 @@ public class Player extends OzElement{
 		push_Y = 0;
 		planeT = PlaneE.ELSE;
 		verticalT = VerticalE.ELSE;
+		L = l; //对外传输玩家坐标
 	}
 	
 	//玩家状态更新
@@ -165,6 +177,10 @@ public class Player extends OzElement{
 		if(push_Y - this.dY > 0){
 			this.push_Y = push_Y - this.dY;
 		}
+	}
+	
+	public  static PointF getL(){
+		return L;
 	}
 	
 

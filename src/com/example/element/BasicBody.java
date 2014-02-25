@@ -2,6 +2,7 @@ package com.example.element;
 
 import android.graphics.PointF;
 import android.graphics.RectF;
+import android.util.Log;
 
 import com.example.basicenum.OzElementType;
 import com.example.basicenum.PlaneE;
@@ -36,11 +37,13 @@ public abstract class BasicBody extends OzElement {
 	@Override
 	public void verticalLogic() {
 		
-	    if( Player.isJump()==true ){
+	    if( Player.isJump()==true &&  Player.getL().y<=Player.limitUp){
 			l.y = l.y + Player.VALUE_JUMP;
+			Log.v("status","BodyJump");
 		}
-		else if( Player.getVerticalT()==VerticalE.ELSE || Player.getVerticalT()==VerticalE.BOTTOM ){
+		else if( (Player.getVerticalT()==VerticalE.ELSE || Player.getVerticalT()==VerticalE.BOTTOM) && Player.getL().y>=Player.limitDown ){
 			l.y = l.y - Player.VALUE_GRAVITY;
+			Log.v("status","BodyFall");
 		}
 		else if( Player.getVerticalT()==VerticalE.TOP ){
 			//停止下坠,坐标不改变就是停止下坠的状态
