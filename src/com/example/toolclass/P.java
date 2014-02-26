@@ -119,7 +119,7 @@ public class P {
 	}
 	/**将图片画在屏幕的合适位置B*/
 	public static void pictureDraw(OzPicture ozPicture,PointF l,Canvas canvasBuffer){
-		canvasBuffer.drawBitmap(ozPicture.bitMap, l.x*Screen.ratioX, l.y*Screen.ratioY, paint);
+		canvasBuffer.drawBitmap(ozPicture.bitMap, l.x*Screen.ratioX, l.y*Screen.ratioY, null);
 	}
 	/**将图片画在屏幕的合适位置C*/
 	public static void pictureDraw(OzPicture ozPicture,float x,float y,Canvas canvasBuffer){

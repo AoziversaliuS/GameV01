@@ -31,7 +31,7 @@ public class GameView extends View implements Runnable{
 
 	long timeStart = 0;  //每一帧的开始和结束时间
 	long timeCost = 0;
-	long timeSleep = 20;  //线程睡眠的时间，每一帧
+	long timeSleep = 10;  //线程睡眠的时间，每一帧
 	Canvas canvasBuffer;
 	Bitmap bitmapBuffer;
 	Paint paint;
@@ -177,6 +177,8 @@ public class GameView extends View implements Runnable{
     * 每一帧绘图
     */
 	protected void onDraw(Canvas canvas) {
+		canvasBuffer.drawRGB(0, 0, 0);
+		canvas.drawRGB(0, 0, 0);
 		switch (status) {
 		
 		case Game:{
@@ -201,7 +203,6 @@ public class GameView extends View implements Runnable{
 		
 		canvas.drawBitmap(bitmapBuffer, 0, 0, null); //双缓冲
 		canvas.drawText("睡眠耗时 : "+w, 50, 50, paint);
-		
 		super.onDraw(canvas);
 	}
 	/**
@@ -220,10 +221,10 @@ public class GameView extends View implements Runnable{
 	public void run() {
 		try {
 			while(threadFlag){
-//				timeStart = System.currentTimeMillis();
+				timeStart = System.currentTimeMillis();
 				//对每一帧根据逻辑进行切换
 				this.frameSwitching();
-//				timeCost   = System.currentTimeMillis() - timeStart;
+				timeCost   = System.currentTimeMillis() - timeStart;
 				//运算消耗的总时间
 				if( timeCost< timeSleep ){
 					Thread.sleep(timeSleep - timeCost);
