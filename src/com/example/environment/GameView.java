@@ -5,11 +5,9 @@ import java.util.ArrayList;
 
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.PointF;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -17,6 +15,7 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
+import android.view.View;
 
 import com.example.basicenum.StatusType;
 import com.example.element.BasicBody;
@@ -27,11 +26,11 @@ import com.example.toolclass.OzInt;
 import com.example.toolclass.P;
 import com.example.toolclass.Screen;
 
-public class GameView extends SurfaceView implements Runnable,Callback{
+public class GameView extends View implements Runnable,Callback{
 
 	long timeStart = 0;  //每一帧的开始和结束时间
 	long timeCost = 0;
-	long timeSleep = 10;  //线程睡眠的时间，每一帧
+	long timeSleep = 25;  //线程睡眠的时间，每一帧
 	Canvas canvasBuffer;
 //	Bitmap bitmapBuffer;
 	Paint paint;
@@ -179,7 +178,7 @@ public class GameView extends SurfaceView implements Runnable,Callback{
    /**
     * 每一帧绘图
     */
-	protected void myDraw() {
+	protected void onDraw(Canvas canvas) {
 		try{
 			canvasBuffer = sfh.lockCanvas();
 			if(canvasBuffer != null){
@@ -201,8 +200,7 @@ public class GameView extends SurfaceView implements Runnable,Callback{
 	public void frameSwitching(){
 		
 		this.eventLogics();     //逻辑。
-//		this.postInvalidate(); //绘画。
-		myDraw();
+		this.postInvalidate(); //绘画。
 		
 	}
 	/**
