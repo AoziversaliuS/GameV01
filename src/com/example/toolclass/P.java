@@ -4,13 +4,11 @@ package com.example.toolclass;
 import java.io.IOException;
 import java.io.InputStream;
 
-import android.R.color;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PointF;
@@ -38,15 +36,15 @@ public class P {
 		if(pictureLoaded == false){
 			varibleDefine();//变量初始化
 			//载入图片  
-			Game_BackGround		 = pictureMake(resources,"Game/BackGround/backg.png", 1280, 720);
+			Game_BackGround		 = pictureMake(resources,"Game/BackGround/BackGround.png", 1280, 720);
 			Game_LarrowA   		 = pictureMake(resources,"Game/Button/Larrow_A.png",      200, 109);
 			Game_LarrowB   		 = pictureMake(resources,"Game/Button/Larrow_B.png",      200, 109);
 			Game_RarrowA   	 	 = pictureMake(resources,"Game/Button/Rarrow_A.png",      200, 109);
 		    Game_RarrowB    	 = pictureMake(resources,"Game/Button/Rarrow_B.png",      200, 109);
 		    Game_JumpA  	     = pictureMake(resources,"Game/Button/Jump_A.png",        130, 130);
 			Game_JumpB   		 = pictureMake(resources,"Game/Button/Jump_B.png",        130, 130);
-		    Game_Player    		 = pictureMake(resources,"Game/Player/ppp.png",            70,  70);
-			Game_BasicStone      = pictureMake(resources,"Game/Build/st.png",            459,  201);
+		    Game_Player    		 = pictureMake(resources,"Game/Player/Player.png",         50,  50);
+			Game_BasicStone      = pictureMake(resources,"Game/Build/BasicStone.png",    450,  114);
 			
 			
 			
@@ -122,15 +120,6 @@ public class P {
 	/**将图片画在屏幕的合适位置B*/
 	public static void pictureDraw(OzPicture ozPicture,PointF l,Canvas canvasBuffer){
 		canvasBuffer.drawBitmap(ozPicture.bitMap, l.x*Screen.ratioX, l.y*Screen.ratioY, paint);
-//		if(ozPicture.basicWidth > 1000){
-//			paint.setColor(color.white);
-//			canvasBuffer.drawRect(l.x,l.y, l.x+ozPicture.basicWidth, l.y+ozPicture.basicHeight, paint);
-//		}
-//		else{
-//			paint.setColor(Color.BLUE);
-//			canvasBuffer.drawRect(l.x,l.y, l.x+ozPicture.basicWidth, l.y+ozPicture.basicHeight, paint);
-//		}
-		
 	}
 	/**将图片画在屏幕的合适位置C*/
 	public static void pictureDraw(OzPicture ozPicture,float x,float y,Canvas canvasBuffer){

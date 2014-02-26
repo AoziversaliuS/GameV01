@@ -5,19 +5,20 @@ import java.util.ArrayList;
 
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.PointF;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
-import android.view.SurfaceHolder;
-import android.view.SurfaceHolder.Callback;
-import android.view.SurfaceView;
 import android.view.View;
 
+import com.example.basicenum.PlaneE;
 import com.example.basicenum.StatusType;
+import com.example.basicenum.VerticalE;
 import com.example.element.BasicBody;
 import com.example.element.OzElement;
 import com.example.element.Player;
@@ -26,15 +27,14 @@ import com.example.toolclass.OzInt;
 import com.example.toolclass.P;
 import com.example.toolclass.Screen;
 
-public class GameView extends View implements Runnable,Callback{
+public class GameView extends View implements Runnable{
 
 	long timeStart = 0;  //每一帧的开始和结束时间
 	long timeCost = 0;
-	long timeSleep = 25;  //线程睡眠的时间，每一帧
+	long timeSleep = 4;  //线程睡眠的时间，每一帧
 	Canvas canvasBuffer;
-//	Bitmap bitmapBuffer;
+	Bitmap bitmapBuffer;
 	Paint paint;
-	private SurfaceHolder sfh;
 	
 	/**游戏状态变量*/
 		private static   ArrayList<OzElement>        gateAtlas;  //每一个关卡的地图集序列
@@ -63,26 +63,24 @@ public class GameView extends View implements Runnable,Callback{
 	 * 变量初始化
 	 */
 	public void variableDefine(){
-//		canvasBuffer = new Canvas();
+		canvasBuffer = new Canvas();
 		//为缓冲画布设置抗锯齿
-//		canvasBuffer.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG|Paint.FILTER_BITMAP_FLAG));
+		canvasBuffer.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG|Paint.FILTER_BITMAP_FLAG));
 		//设置屏幕大小的缓冲图片
-//		bitmapBuffer = Bitmap.createBitmap((int)Screen.width, (int)Screen.height, Bitmap.Config.ARGB_8888);
-//		canvasBuffer.setBitmap(bitmapBuffer);//设置缓冲图片
+		bitmapBuffer = Bitmap.createBitmap((int)Screen.width, (int)Screen.height, Bitmap.Config.ARGB_8888);
+		canvasBuffer.setBitmap(bitmapBuffer);//设置缓冲图片
 		
 		paint           = new Paint();
 		paint.setTextSize(50);
 		paint.setColor(Color.BLUE);
-//		paint.setAntiAlias(true);//画笔设置抗锯齿
-//		paint.setFilterBitmap(true); //画笔设置过滤，不知有什么用。。
+		paint.setAntiAlias(true);//画笔设置抗锯齿
+		paint.setFilterBitmap(true); //画笔设置过滤，不知有什么用。。
 		
 		game_Button     = new GameButton();
 		gateAtlas       = new ArrayList<OzElement>();
 		rankNum         = new ArrayList<OzInt>();
 		game_PressPoint = new ArrayList<PointF>();
 		player = new Player();
-		sfh = this.getHolder();
-		sfh.addCallback(this);
 		
 	}
 	/**
@@ -179,25 +177,37 @@ public class GameView extends View implements Runnable,Callback{
     * 每一帧绘图
     */
 	protected void onDraw(Canvas canvas) {
-		try{
-			canvasBuffer = sfh.lockCanvas();
-			if(canvasBuffer != null){
-				this.gameDraw(canvasBuffer);
-			}
-		}catch(Exception e){
-			
-		}finally{
-			if(canvasBuffer != null){
-				sfh.unlockCanvasAndPost(canvasBuffer);
-			}
+		switch (status) {
+		
+		case Game:{
+						this.gameDraw( canvasBuffer);
+		}
+		break;
+		
+		case Loading:
+			break;
+		case Pause:
+			break;
+		case Select:
+			break;
+		case Start:
+			break;
+		case StatusInitialize:
+			break;
+		case Credits:
+			break;
 		}
 		
 		
+		canvas.drawBitmap(bitmapBuffer, 0, 0, null); //双缓冲
+		canvas.drawText("睡眠耗时 : "+w, 50, 50, paint);
+		
+		super.onDraw(canvas);
 	}
 	/**
 	 * 对每一帧进行总切换
 	 */
-	public void frameSwitching(){
+	private void frameSwitching(){
 		
 		this.eventLogics();     //逻辑。
 		this.postInvalidate(); //绘画。
@@ -210,10 +220,10 @@ public class GameView extends View implements Runnable,Callback{
 	public void run() {
 		try {
 			while(threadFlag){
-				timeStart = System.currentTimeMillis();
+//				timeStart = System.currentTimeMillis();
 				//对每一帧根据逻辑进行切换
 				this.frameSwitching();
-				timeCost   = System.currentTimeMillis() - timeStart;
+//				timeCost   = System.currentTimeMillis() - timeStart;
 				//运算消耗的总时间
 				if( timeCost< timeSleep ){
 					Thread.sleep(timeSleep - timeCost);
@@ -308,22 +318,6 @@ public class GameView extends View implements Runnable,Callback{
 			}
 		}
 		//此时还未绘图
-	}
-	@Override
-	public void surfaceChanged(SurfaceHolder holder, int format, int width,
-			int height) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void surfaceCreated(SurfaceHolder holder) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void surfaceDestroyed(SurfaceHolder holder) {
-		// TODO Auto-generated method stub
-		
 	}
 	
 	
