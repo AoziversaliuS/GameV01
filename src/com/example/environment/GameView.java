@@ -31,7 +31,7 @@ public class GameView extends View implements Runnable{
 
 	long timeStart = 0;  //每一帧的开始和结束时间
 	long timeCost = 0;
-	long timeSleep = 10;  //线程睡眠的时间，每一帧
+	long timeSleep = 20;  //线程睡眠的时间，每一帧
 	Canvas canvasBuffer;
 	Bitmap bitmapBuffer;
 	Paint paint;
