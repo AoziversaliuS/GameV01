@@ -16,12 +16,12 @@ import com.example.toolclass.Rank;
 
 public class Player extends OzElement{
 
-	public static final float VALUE_MOVE    = 8;                //玩家水平移动速度
-	public static final float VALUE_GRAVITY = 8;                //重力
+	public static final float VALUE_MOVE    = 5;                //玩家水平移动速度
+	public static final float VALUE_GRAVITY = 4;                //重力
 	public static final float limitUp = 200;
 	public static final float limitDown = 520;
 	
-	public  static final float VALUE_JUMP    = 8;  //跳跃的速度
+	public  static final float VALUE_JUMP    = 4;  //跳跃的速度
 	public  static PointF L = new PointF(0,0);
 	public  static final int JumpTimeMAX = 50;
 	private static int JumpTimeCount = 0;  //跳跃的时间
@@ -68,18 +68,15 @@ public class Player extends OzElement{
 	public void verticalLogic() {
 	    if( Player.isJump()==true && l.y>Player.limitUp){
 			l.y = l.y - Player.VALUE_JUMP;
+			Log.v("status","玩家跳跃");
 		}
 		else if(Player.isJump()==false && (Player.getVerticalT()==VerticalE.ELSE || Player.getVerticalT()==VerticalE.BOTTOM) && l.y<Player.limitDown){
 			l.y = l.y + Player.VALUE_GRAVITY;
+			Log.v("status","玩家下坠");
 		}
 		else if( Player.getVerticalT()==VerticalE.TOP ){
 			//停止下坠,坐标不改变就是停止下坠的状态
 		}
-	    if( Player.isJump()==true){
-	    	Log.v("player","玩家坐标: "+l.y);
-	    }
-	    
-	    
 	}
 
 	@Override
@@ -107,7 +104,7 @@ public class Player extends OzElement{
 	}
 	public void jumpAction(){
 		//当玩家站在陆地上且按下跳跃按键之后才可以跳跃。verticalT
-//			Log.v("player","玩家状态："+jump+"   跳跃按键："+GameButton.get_S());
+			Log.v("player","玩家状态："+jump+"   跳跃按键："+GameButton.get_S());
 			if(GameButton.get_S() == GameButton.S_JUMP && verticalT == VerticalE.TOP){
 				jump = true;
 			}
