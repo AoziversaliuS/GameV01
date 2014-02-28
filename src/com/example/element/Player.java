@@ -16,12 +16,12 @@ import com.example.toolclass.Rank;
 
 public class Player extends OzElement{
 
-	public static final float VALUE_MOVE    = 3f;                //玩家水平移动速度
-	public static final float VALUE_GRAVITY = 3.8f;                //重力
+	public static final float VALUE_MOVE    = 5;                //玩家水平移动速度
+	public static final float VALUE_GRAVITY = 4;                //重力
 	public static final float limitUp = 200;
 	public static final float limitDown = 520;
 	
-	public  static final float VALUE_JUMP    = 3.8f;  //跳跃的速度
+	public  static final float VALUE_JUMP    = 4;  //跳跃的速度
 	public  static PointF L = new PointF(0,0);
 	public  static final int JumpTimeMAX = 50;
 	private static int JumpTimeCount = 0;  //跳跃的时间

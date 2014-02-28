@@ -17,7 +17,6 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
-import android.view.View;
 
 import com.example.basicenum.StatusType;
 import com.example.element.BasicBody;
@@ -28,16 +27,15 @@ import com.example.toolclass.OzInt;
 import com.example.toolclass.P;
 import com.example.toolclass.Screen;
 
-public class GameView extends View implements Runnable,Callback{
+public class GameView extends SurfaceView implements Runnable,Callback{
 
 	long timeStart = 0;  //每一帧的开始和结束时间
 	long timeCost = 0;
 	long timeSleep = 10;  //线程睡眠的时间，每一帧
 	Canvas canvasBuffer;
-//	Canvas c;
-	Bitmap bitmapBuffer;
+//	Bitmap bitmapBuffer;
 	Paint paint;
-//	private SurfaceHolder sfh;
+	private SurfaceHolder sfh;
 	
 	/**游戏状态变量*/
 		private static   ArrayList<OzElement>        gateAtlas;  //每一个关卡的地图集序列
@@ -66,13 +64,12 @@ public class GameView extends View implements Runnable,Callback{
 	 * 变量初始化
 	 */
 	public void variableDefine(){
-		canvasBuffer = new Canvas();
-//		c = new Canvas();
+//		canvasBuffer = new Canvas();
 		//为缓冲画布设置抗锯齿
-		canvasBuffer.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG|Paint.FILTER_BITMAP_FLAG));
+//		canvasBuffer.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG|Paint.FILTER_BITMAP_FLAG));
 		//设置屏幕大小的缓冲图片
-		bitmapBuffer = Bitmap.createBitmap((int)Screen.width, (int)Screen.height, Bitmap.Config.ARGB_8888);
-		canvasBuffer.setBitmap(bitmapBuffer);//设置缓冲图片
+//		bitmapBuffer = Bitmap.createBitmap((int)Screen.width, (int)Screen.height, Bitmap.Config.ARGB_8888);
+//		canvasBuffer.setBitmap(bitmapBuffer);//设置缓冲图片
 		
 		paint           = new Paint();
 		paint.setTextSize(50);
@@ -85,8 +82,8 @@ public class GameView extends View implements Runnable,Callback{
 		rankNum         = new ArrayList<OzInt>();
 		game_PressPoint = new ArrayList<PointF>();
 		player = new Player();
-//		sfh = this.getHolder();
-//		sfh.addCallback(this);
+		sfh = this.getHolder();
+		sfh.addCallback(this);
 		
 	}
 	/**
@@ -182,23 +179,20 @@ public class GameView extends View implements Runnable,Callback{
    /**
     * 每一帧绘图
     */
-	protected void onDraw(Canvas canvas) {
+	protected void myDraw() {
+		try{
+			canvasBuffer = sfh.lockCanvas();
+			if(canvasBuffer != null){
+				this.gameDraw(canvasBuffer);
+			}
+		}catch(Exception e){
+			
+		}finally{
+			if(canvasBuffer != null){
+				sfh.unlockCanvasAndPost(canvasBuffer);
+			}
+		}
 		
-		this.gameDraw(canvasBuffer);
-//		try{
-//			c = sfh.lockCanvas();
-//			if(c != null){
-//				c.drawBitmap(bitmapBuffer, 0, 0, paint);
-//			}
-//			}catch(Exception e){
-//			
-//			}finally{
-//			if(c != null){
-//				sfh.unlockCanvasAndPost(c);
-//			}
-//		}
-//		canvas.setBitmap(bitmapBuffer);
-		canvas.drawBitmap(bitmapBuffer, 0, 0, paint);
 		
 	}
 	/**
@@ -207,8 +201,8 @@ public class GameView extends View implements Runnable,Callback{
 	public void frameSwitching(){
 		
 		this.eventLogics();     //逻辑。
-		this.postInvalidate(); //绘画。
-//		myDraw();
+//		this.postInvalidate(); //绘画。
+		myDraw();
 		
 	}
 	/**
@@ -287,7 +281,7 @@ public class GameView extends View implements Runnable,Callback{
 				
 				player.engine();
 	}
-	public void gameDraw(Canvas canvas){
+	public void gameDraw(Canvas canvas ){
 		//不用加canvas参数，因为现在用的是canvasBuffer缓冲来画
 		for(int i=0;i<rankNum.size();i++){
 			

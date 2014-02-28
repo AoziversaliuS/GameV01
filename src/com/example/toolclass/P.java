@@ -56,10 +56,15 @@ public class P {
 	}
 	
 	
+	private static Paint paint;
 	 public static final PointF zero = new PointF(0,0);  //为了消除DrawAllocation而设，以后忘了是什么可以删掉
 	private static String DpiFolder = "xh/";
 	
 	private static void varibleDefine(){
+		//定义画笔
+		paint = new Paint();
+		paint.setAntiAlias(true); //画笔抗锯齿
+		paint.setFilterBitmap(true); //画笔设置过滤
 		
 		if(Screen.dpi>=320){
 			DpiFolder = "xh/";  //在xh文件夹下找图片
@@ -112,14 +117,11 @@ public class P {
 			mx.postTranslate(l.x*Screen.ratioX,  l.y*Screen.ratioY);
 		}
 		
-		canvasBuffer.drawBitmap(ozPicture.bitMap, mx, null);
+		canvasBuffer.drawBitmap(ozPicture.bitMap, mx, paint);
 	}
 	/**将图片画在屏幕的合适位置B*/
 	public static void pictureDraw(OzPicture ozPicture,PointF l,Canvas canvasBuffer){
-		float x =  l.x*Screen.ratioX;
-		float y = l.y*Screen.ratioY;
-		
-		canvasBuffer.drawBitmap(ozPicture.bitMap, x, y, null);
+		canvasBuffer.drawBitmap(ozPicture.bitMap, l.x*Screen.ratioX, l.y*Screen.ratioY, paint);
 //		if(ozPicture.basicWidth > 1000){
 //			paint.setColor(color.white);
 //			canvasBuffer.drawRect(l.x,l.y, l.x+ozPicture.basicWidth, l.y+ozPicture.basicHeight, paint);
@@ -132,7 +134,7 @@ public class P {
 	}
 	/**将图片画在屏幕的合适位置C*/
 	public static void pictureDraw(OzPicture ozPicture,float x,float y,Canvas canvasBuffer){
-		canvasBuffer.drawBitmap(ozPicture.bitMap, x*Screen.ratioX, y*Screen.ratioY, null);
+		canvasBuffer.drawBitmap(ozPicture.bitMap, x*Screen.ratioX, y*Screen.ratioY, paint);
 	}
 
 	
