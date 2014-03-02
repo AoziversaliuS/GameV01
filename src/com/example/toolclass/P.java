@@ -38,7 +38,7 @@ public class P {
 		if(pictureLoaded == false){
 			varibleDefine();//变量初始化
 			//载入图片  
-			Game_BackGround		 = pictureMake(resources,"Game/BackGround/backg.png", 1280, 720);
+			Game_BackGround		 = pictureMake(resources,"Game/BackGround/backg.png",    1280, 720);
 			Game_LarrowA   		 = pictureMake(resources,"Game/Button/Larrow_A.png",      200, 109);
 			Game_LarrowB   		 = pictureMake(resources,"Game/Button/Larrow_B.png",      200, 109);
 			Game_RarrowA   	 	 = pictureMake(resources,"Game/Button/Rarrow_A.png",      200, 109);
